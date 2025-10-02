@@ -41,6 +41,10 @@ return {
 				update_focused_file = {
 					enable = true,
 				},
+				git = {
+					enable = true,
+					ignore = false,
+				}
 			})
 		end,
 	},
@@ -120,7 +124,7 @@ return {
 		end,
 	},
 	{
-		"nvim-telescope/telescope.nvim", tag = '0.1.8',
+		"nvim-telescope/telescope.nvim",
 		dependencies={"nvim-lua/plenary.nvim"},
 		config = function() 
 			function gpt_telescope_copy_file(prompt_bufnr) 
@@ -201,20 +205,6 @@ return {
 				end,
 				desc = "Buffer Local Keymaps (which-key)",
 			},
-		},
-	},
-	{
-		"mason-org/mason.nvim",
-		build = ":MasonUpdate",
-		config = true,
-	},
-	{
-		"mason-org/mason-lspconfig.nvim",
-		dependencies = { {"mason-org/mason.nvim", opts = {}}, "neovim/nvim-lspconfig" },
-		opts = {
-			-- ensure_installed = {"lua_ls", "gopls", "clangd"},
-			ensure_installed = {"gopls", },
-			ui = {border = "rounded"},
 		},
 	},
 }

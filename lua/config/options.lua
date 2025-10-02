@@ -12,3 +12,18 @@ opt.tabstop = 4
 opt.shiftwidth = 4
 opt.softtabstop = 4
 
+-- LSP 
+vim.lsp.config.clangd = {
+	filetypes = {"c", "cpp", "hpp", "h"},
+	cmd = {"clangd"},
+	root_markers = { "compile_commands.json"},
+}
+
+vim.lsp.config.pyright = {
+	filetypes = {"python"},
+	cmd = {"pyright-langserver", "--stdio"}
+}
+
+vim.lsp.enable("clangd")
+vim.lsp.enable("pyright")
+

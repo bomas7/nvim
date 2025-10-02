@@ -71,6 +71,7 @@ function gpt.run_cp(opts)
 		output = "main"
 	end
 
+
 	local cmd = string.format("%s %s -o %s && ./%s", machine.cpp_compiler, filepath, output, output)
 	if auto_input then
 		cmd  = cmd .. " < input.txt"
@@ -83,8 +84,6 @@ function gpt.run_cp(opts)
 		terminals.toggle_cp_term()
 		return
 	end
-	term:open()
-	term:send(cmd, true)
 	local cmd_term = Terminal:new({
 		cmd = cmd,
 		direction = "float",
@@ -95,6 +94,7 @@ function gpt.run_cp(opts)
 	-- term:open()
 
 end
+
 
 function gpt.codeforce_template()
 	local function expand_path(path)
@@ -222,25 +222,25 @@ function gpt.toggle_ignore_case()
 end
 
 function gpt.search_and_replace_word(opts)
-    local prefix = "%"
-    if opts then
-        if opts.line then
-            prefix = "."
-        end
-    end
+	local prefix = "%"
+	if opts then
+		if opts.line then
+			prefix = "."
+		end
+	end
 
-    local word = vim.fn.expand("<cword>")
-    vim.ui.input({ prompt = "Replace '" .. word .. "' with: " }, function(replacement)
-        if replacement == nil then
-            -- print("Replacement cancelled.")
-            return
-        end
-        local escaped_word = vim.fn.escape(word, "\\/")
-        local escaped_replacement = vim.fn.escape(replacement, "\\/")
-        vim.cmd(string.format("silent %ss/\\<%s\\>/%s/g", prefix, escaped_word, escaped_replacement))
-        vim.cmd("noh")
-        vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<Esc>", true, false, true), "n", false)
-    end)
+	local word = vim.fn.expand("<cword>")
+	vim.ui.input({ prompt = "Replace '" .. word .. "' with: " }, function(replacement)
+		if replacement == nil then
+			-- print("Replacement cancelled.")
+			return
+		end
+		local escaped_word = vim.fn.escape(word, "\\/")
+		local escaped_replacement = vim.fn.escape(replacement, "\\/")
+		vim.cmd(string.format("silent %ss/\\<%s\\>/%s/g", prefix, escaped_word, escaped_replacement))
+		vim.cmd("noh")
+		vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<Esc>", true, false, true), "n", false)
+	end)
 end
 
 return gpt

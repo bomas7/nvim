@@ -45,7 +45,7 @@ map("n", "<leader>sr", function() gpt.search_and_replace_word() end, extend_opts
 
 -- Bufferline
 for i = 1, 9 do
-	map("n", "leader"..i, function()
+	map("n", "<leader>"..i, function()
 		require("bufferline").go_to_buffer(i)
 	end)
 end
@@ -80,14 +80,17 @@ vim.api.nvim_create_autocmd('FileType', {
 
 -- Telescope
 local builtin = require('telescope.builtin')
+vim.lsp.util.make_position_params(nil, "utf-16")
 map('n', '<leader>ff', builtin.find_files, { desc = 'Telescope find file' })
 map('n', '<leader>fs', builtin.live_grep, { desc = 'Telescope live grep' })
 map('n', '<leader>fd', builtin.lsp_definitions, { desc = 'Telescope find definition' })
 map('n', '<leader>fc', builtin.lsp_references, { desc = 'Telescope find calls' })
 map('n', '<leader>fe', builtin.diagnostics, { desc = 'Telescope Diagnostics' })
+-- map('n', '<leader>fi', builtin.lsp_implementation, { desc = 'Telescope Implementation' })
+map('n', '<leader>ft', builtin.lsp_type_definitions, { desc = 'Telescope Type' })
 map('n', '<leader>fw', builtin.current_buffer_fuzzy_find, { desc = 'Telescope find within buffer' })
 map('n', '<leader>fb', builtin.buffers, { desc = 'Telescope find buffer' })
-map('n', '<leader>ft', gpt.find_directory, { desc = 'Telescope find directory' })
+map('n', '<leader>fz', gpt.find_directory, { desc = 'Telescope find directory' })
 
 -- ToggleTerm
 local term = require("config.terminals")
